@@ -96,6 +96,23 @@
                                 <li class="scroll"><a href="#new-cars">new cars</a></li>
                                 <li class="scroll"><a href="#brand">brands</a></li>
                                 <li class="scroll"><a href="#contact">contact</a></li>
+                                @auth
+                                    <li>
+                                        <form action="{{ route('logout') }}" method="POST">
+                                            @csrf
+                                            <button type="submit"
+                                                style="color: white; 
+                                        text-transform: uppercase;
+                                        margin-top: 47px">
+                                                Log Out
+                                            </button>
+                                        </form>
+                                    </li>
+                                    @else
+                                    <li>
+                                        <a href="{{ route('login') }}">Login</a>
+                                    </li>
+                                @endauth
                             </ul><!--/.nav -->
                         </div><!-- /.navbar-collapse -->
                     </div><!--/.container-->
@@ -386,7 +403,9 @@
             <div class="section-header">
                 <p>checkout <span>the</span> featured cars</p>
                 <h2>featured cars</h2>
-                <a href="{{ route('create') }}">+Add car</a>
+                @auth
+                    <a href="{{ route('create') }}">+Add car</a>
+                @endauth
             </div><!--/.section-header-->
             <div class="featured-cars-content">
                 <div class="row">
@@ -404,15 +423,13 @@
                                 <div class="featured-cars-txt">
                                     <div style="display: flex; align-items: center; justify-content: space-between;">
                                         <h2><a href="#">{{ $car->title }}</a></h2>
-                                        <a href="{{ route('cars.edit', 
-                                        ['cars'=> $car->id])}}">
+                                        <a href="{{ route('cars.edit', ['cars' => $car->id]) }}">
                                             <i class="fa fa-pencil fa-2x" aria-hidden="true"></i>
                                         </a>
-                                        <form action="{{route('cars.delete', 
-                                        ['cars' => $car->id])}}" method="POST" 
-                                        onsubmit="return confirm('Haqiqatdan ham o`chirilsinmi...?')">
-                                        @csrf
-                                        @method('DELETE');
+                                        <form action="{{ route('cars.delete', ['cars' => $car->id]) }}" method="POST"
+                                            onsubmit="return confirm('Haqiqatdan ham o`chirilsinmi...?')">
+                                            @csrf
+                                            @method('DELETE');
                                             <button type="submit">
                                                 <i class="fa fa-trash fa-2x"></i>
                                             </button>
