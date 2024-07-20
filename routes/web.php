@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CarsController;
 use App\Http\Controllers\PageController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PageController::class, 'index'])->name('/');
@@ -16,3 +17,6 @@ Route::delete('cars/{cars}/delete', [CarsController::class, 'delete'])->name('ca
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('register',[AuthController::class, 'register'])->name('register');
+Route::post('register', [AuthController::class, 'register_store'])->name('register_store');
